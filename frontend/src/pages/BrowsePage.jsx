@@ -52,15 +52,22 @@ function BrowsePage() {
       )}
 
       <div className="recipe-grid">
-        {recipes.slice(0, 60).map((recipe) => (
-          <Link key={recipe._id} to={`/recipes/${recipe._id}`} className="recipe-card">
-            <h3>{recipe.title}</h3>
-            <div className="meta">
-              {recipe.category} &middot; {recipe.prepTime} min
-            </div>
-          </Link>
-        ))}
+  {recipes.slice(0, 60).map((recipe) => (
+    <Link key={recipe._id} to={`/recipes/${recipe._id}`} className="recipe-card">
+      <div className="recipe-card-image">
+        {recipe.imageUrl ? (
+          <img src={recipe.imageUrl} alt={recipe.title} />
+        ) : (
+          <div className="recipe-card-image-placeholder">No photo</div>
+        )}
       </div>
+      <h3>{recipe.title}</h3>
+      <div className="meta">
+        {recipe.category} &middot; {recipe.prepTime} min
+      </div>
+    </Link>
+  ))}
+</div>
     </div>
   );
 }

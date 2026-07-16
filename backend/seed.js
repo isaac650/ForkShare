@@ -56,8 +56,17 @@ function pickMultiple(arr, count) {
   const shuffled = [...arr].sort(() => 0.5 - Math.random());
   return shuffled.slice(0, count);
 }
-
-function generateRecipe(authorIds) {
+async function fetchFoodImage() {
+  try {
+    const res = await fetch('https://foodish-api.com/api/');
+    const data = await res.json();
+    return data.image;
+  } catch (err) {
+    // Fallback if the API hiccups mid-seed, so one failed request doesn't crash the whole run
+    return 'https://foodish-api.com/images/pizza/pizza1.jpg';
+  }
+}
+async function generateRecipe(authorIds) {
   const adjective = pickRandom(ADJECTIVES);
   const main = pickRandom(MAINS);
   const dishType = pickRandom(DISH_TYPES);
@@ -83,7 +92,7 @@ function generateRecipe(authorIds) {
     steps,
     prepTime,
     category,
-    imageUrl: null,
+    imageUrl: await fetchFoodImage(),
     author: author._id,
     authorName: author.name,
     createdAt: new Date(),
@@ -116,13 +125,13 @@ async function seed() {
     console.log('Connected to MongoDB (forkshare database)');
 
     const authors = await ensureSeedAuthors(db);
-
     const TOTAL_RECIPES = 1200; // comfortably over the 1k requirement
     const recipes = [];
     for (let i = 0; i < TOTAL_RECIPES; i++) {
-      recipes.push(generateRecipe(authors));
+      recipes.push(await generateRecipe(authors));
+      if (i % 100 === 0) console.log(`Generated ${i}/${TOTAL_RECIPES}...`);
     }
-
+    
     console.log(`Inserting ${recipes.length} synthetic recipes...`);
     const result = await db.collection('recipes').insertMany(recipes);
     console.log(`Done. Inserted ${result.insertedCount} recipes.`);
