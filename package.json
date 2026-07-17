@@ -1,0 +1,11 @@
+{
+  "name": "ForkShare",
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "build": "npm run build --workspace=frontend",
+    "start": "npm start --workspace=backend"
+  }
+}
