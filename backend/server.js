@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const path = require('path');
 const session = require('express-session');
 const passport = require('./config/passport');
 const { connectDB } = require('./config/db');
@@ -30,6 +31,15 @@ app.use(passport.session());
 app.use('/api/auth', authRoutes);
 app.use('/api/recipes', recipesRoutes);
 app.use('/api/cookbook', cookbookRoutes);
+
+
+const frontendPath = path.join(__dirname, '..', 'frontend', 'dist');
+app.use(express.static(frontendPath));
+
+
+app.get(/^(?!\/api).*/, (req, res) => {
+  res.sendFile(path.join(frontendPath, 'index.html'));
+});
 
 async function start() {
   await connectDB();
