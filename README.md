@@ -4,12 +4,12 @@ A full-stack recipe sharing web application for home cooks. Users create an acco
 
 ## Author
 
-- Celine Isaacs 
+- Celine Isaacs
 - Claire Stanton
 
 ## Class Link
 
-[Web Development — Northeastern University](https://webdev-online-neu.slack.com/archives/C09D5UFRT2R) 
+[Web Development — Northeastern University](https://webdev-online-neu.slack.com/archives/C09D5UFRT2R)
 
 ## Project Objective
 
@@ -19,8 +19,6 @@ ForkShare was built as Project 3 for our Web Development course. The goal was to
 - **Claire** implemented the browse/search/filter experience and full CRUD on the `cookbook` collection (save, update notes/ratings, remove saved recipes).
 
 ## Screenshot
-
-
 
 ## Tech Stack
 
@@ -55,10 +53,12 @@ cp .env.example .env
 Edit `.env` with your own values:
 
 ```
+
 MONGO_URI=mongodb://localhost:27017/forkshare
 SESSION_SECRET=your-own-random-string-here
 PORT=3000
-```
+
+````
 
 (If using MongoDB Atlas instead of local Mongo, replace `MONGO_URI` with your Atlas connection string, including the database name, e.g. `mongodb+srv://<user>:<password>@<cluster>.mongodb.net/forkshare?retryWrites=true&w=majority`.)
 
@@ -66,7 +66,7 @@ Start the backend:
 
 ```bash
 npm run dev
-```
+````
 
 You should see:
 
@@ -90,6 +90,8 @@ Vite will start on `http://localhost:5173` and proxy `/api` requests to the back
 ### 4. Use the app
 
 Open `http://localhost:5173` in your browser. Register an account, submit a recipe, browse, and save recipes to your cookbook.
+
+## Public Deployment
 
 ## License
 

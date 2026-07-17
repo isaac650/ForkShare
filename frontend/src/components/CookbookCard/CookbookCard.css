@@ -1,0 +1,54 @@
+.cookbook-entry-card {
+  border: 1px solid #cfcfcf;
+  overflow: hidden;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+.cookbook-entry-card__info {
+  padding: 14px;
+}
+
+.cookbook-entry-card__notes {
+  font-size: 0.85rem;
+  color: #444;
+  font-style: italic;
+  margin: 0 0 10px;
+}
+
+.cookbook-entry-card__notes-input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #999;
+  font-family: inherit;
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+  resize: vertical;
+}
+
+.cookbook-entry-card__actions {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.cookbook-entry-card__actions button,
+.cookbook-entry-card__edit-btn,
+.cookbook-entry-card__delete-btn {
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  border: 1px solid #2b2b2b;
+  background: #fff;
+  cursor: pointer;
+}
+
+.cookbook-entry-card__delete-btn {
+  border-color: #a33;
+  color: #a33;
+}
+
+.cookbook-entry-card__date {
+  display: block;
+  font-size: 0.75rem;
+  color: #999;
+  margin-top: 8px;
+}

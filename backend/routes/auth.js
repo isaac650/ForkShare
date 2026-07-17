@@ -62,7 +62,7 @@ router.post('/logout', (req, res, next) => {
   });
 });
 
-// GET /apisession
+// GET /api/session
 router.get('/session', (req, res) => {
   if (req.isAuthenticated()) {
     return res.json({ id: req.user._id, name: req.user.name, email: req.user.email });

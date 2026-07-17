@@ -1,5 +1,3 @@
-
-// full search/filter UI on top of this same endpoint.
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { api } from '../api';
