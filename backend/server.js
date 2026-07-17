@@ -6,7 +6,7 @@ const { connectDB } = require('./config/db');
 
 const authRoutes = require('./routes/auth');
 const recipesRoutes = require('./routes/recipes');
-// const cookbookRoutes = require('./routes/cookbook'); for cookbook
+const cookbookRoutes = require('./routes/cookbook');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -29,7 +29,7 @@ app.use(passport.session());
 
 app.use('/api/auth', authRoutes);
 app.use('/api/recipes', recipesRoutes);
-// app.use('/api/cookbook', cookbookRoutes);
+app.use('/api/cookbook', cookbookRoutes);
 
 async function start() {
   await connectDB();
