@@ -19,6 +19,7 @@ ForkShare was built as Project 3 for our Web Development course. The goal was to
 - **Claire** implemented the browse/search/filter experience and full CRUD on the `cookbook` collection (save, update notes/ratings, remove saved recipes).
 
 ## Screenshot
+![ForkShare Browse page](./docs/screenshot.png)
 
 ## Tech Stack
 
