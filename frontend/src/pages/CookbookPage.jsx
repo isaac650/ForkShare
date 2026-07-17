@@ -1,30 +1,20 @@
 import { useState, useEffect } from 'react';
-import CookbookForm from '../components/CookbookForm';
-import CookbookEntryCard from '../components/CookbookEntryCard';
-import './Cookbook.css';
+import { api } from '../api';
+import CookbookCard from '../components/CookbookCard/CookbookCard';
+import './CookbookPage.css';
 
 function CookbookPage() {
   const [entries, setEntries] = useState([]);
-  const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     api
       .get('/cookbook')
       .then((data) => setEntries(data))
-      .catch((err) => setError(err.message));
-  }, []);
-
-  const handleAddRecipe = (formData) => {
-    setSubmitting(true);
-    setError('');
-
-    api
-      .post('/cookbook', formData)
-      .then((newEntry) => setEntries((prev) => [...prev, newEntry]))
       .catch((err) => setError(err.message))
-      .finally(() => setSubmitting(false));
-  };
+      .finally(() => setLoading(false));
+  }, []);
 
   const handleUpdateNotes = (entryId, notes) => {
     return api
@@ -49,16 +39,20 @@ function CookbookPage() {
   };
 
   return (
-    <div>
+    <div className="cookbook-page">
       <h1>My Cookbook</h1>
 
-      <CookbookForm onSubmit={handleAddRecipe} submitting={submitting} />
-
+      {loading && <p className="cookbook-page__status">Loading your cookbook...</p>}
       {error && <p className="cookbook-page__error">{error}</p>}
+      {!loading && !error && entries.length === 0 && (
+        <p className="cookbook-page__status">
+          No saved recipes yet — browse recipes and save your favorites!
+        </p>
+      )}
 
       <div className="cookbook-page__grid">
         {entries.map((entry) => (
-          <CookbookEntryCard
+          <CookbookCard
             key={entry._id}
             entry={entry}
             onUpdateNotes={handleUpdateNotes}

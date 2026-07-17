@@ -1,11 +1,14 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import api from '../api';
+import { api } from '../api';
+import './RecipeDetailPage.css';
 
 function RecipeDetailPage() {
   const { id } = useParams();
   const [recipe, setRecipe] = useState(null);
   const [error, setError] = useState('');
+  const [saving, setSaving] = useState(false);
+  const [saveMessage, setSaveMessage] = useState('');
 
   useEffect(() => {
     api
@@ -14,8 +17,23 @@ function RecipeDetailPage() {
       .catch((err) => setError(err.message));
   }, [id]);
 
+  const handleSaveToCookbook = () => {
+    setSaving(true);
+    setSaveMessage('');
+
+    api
+      .post('/cookbook', { recipeId: id, notes: '' })
+      .then(() => setSaveMessage('Saved to your cookbook!'))
+      .catch((err) => setSaveMessage(err.message))
+      .finally(() => setSaving(false));
+  };
+
   if (error) {
     return <p className="recipe-page__error">{error}</p>;
+  }
+
+  if (!recipe) {
+    return <p className="recipe-page__loading">Loading recipe...</p>;
   }
 
   return (
@@ -28,6 +46,15 @@ function RecipeDetailPage() {
 
       <h1 className="recipe-page__title">{recipe.title}</h1>
       <span className="recipe-page__category">{recipe.category}</span>
+
+      <button
+        className="recipe-page__save-button"
+        onClick={handleSaveToCookbook}
+        disabled={saving}
+      >
+        {saving ? 'Saving...' : '♡ Save to Cookbook'}
+      </button>
+      {saveMessage && <p className="recipe-page__save-message">{saveMessage}</p>}
 
       <section>
         <h2>Prep Time</h2>

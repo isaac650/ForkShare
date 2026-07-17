@@ -24,7 +24,7 @@ router.get("/", ensureAuth, async (req, res) => {
 
     const entries = await db
       .collection("cookbookEntries")
-      .find({ userId: req.user.id })
+      .find({ userId: req.user._id })
       .toArray();
 
     if (entries.length === 0) {
@@ -54,6 +54,7 @@ router.get("/", ensureAuth, async (req, res) => {
 // POST /api/cookbook adds a recipe to the current user's cookbook
 router.post("/", ensureAuth, async (req, res) => {
   try {
+    const db = getDB();
     const { recipeId, notes } = req.body;
 
     if (!recipeId) {
@@ -69,7 +70,7 @@ router.post("/", ensureAuth, async (req, res) => {
 
     const entry = {
       recipeId: new ObjectId(recipeId),
-      userId: req.user.id,
+      userId: req.user._id,
       notes: notes || "",
       addedAt: new Date(),
     };
@@ -87,12 +88,13 @@ router.post("/", ensureAuth, async (req, res) => {
 // PUT /api/cookbook/:id updates notes for current user's cookbook
 router.put("/:id", ensureAuth, async (req, res) => {
   try {
+    const db = getDB();
     const { notes } = req.body;
 
     const result = await db
       .collection("cookbookEntries")
       .findOneAndUpdate(
-        { _id: new ObjectId(req.params.id), userId: req.user.id },
+        { _id: new ObjectId(req.params.id), userId: req.user._id },
         { $set: { notes: notes || "" } },
         { returnDocument: "after" },
       );
@@ -110,9 +112,10 @@ router.put("/:id", ensureAuth, async (req, res) => {
 // DELETE /api/cookbook/:id removes a recipe from the current user's cookbook
 router.delete("/:id", ensureAuth, async (req, res) => {
   try {
+    const db = getDB();
     await db.collection("cookbookEntries").deleteOne({
       _id: new ObjectId(req.params.id),
-      userId: req.user.id,
+      userId: req.user._id,
     });
     res.status(204).send();
   } catch (err) {

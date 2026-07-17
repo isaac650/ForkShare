@@ -1,9 +1,9 @@
-// includes the recipe card with added personal notes
-import { useState } from 'react';
-import RecipeCard from './RecipeCard';
-import './CookbookEntryCard.css';
 
-function CookbookEntryCard({ entry, onUpdateNotes }) {
+import { useState } from 'react';
+import RecipeCard from '../RecipeCard/RecipeCard';
+import './CookbookCard.css';
+
+function CookbookEntryCard({ entry, onUpdateNotes, onDelete }) {
   const { _id, title, category, imageUrl, notes, addedAt } = entry;
   const [isEditing, setIsEditing] = useState(false);
   const [draftNotes, setDraftNotes] = useState(notes || '');
