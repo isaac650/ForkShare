@@ -94,6 +94,8 @@ Open `http://localhost:5173` in your browser. Register an account, submit a reci
 
 ## Public Deployment
 
+- **Live URL:** [https://forkshare-4kb5.onrender.com/](https://forkshare-4kb5.onrender.com/)
+
 ## License
 
 This project is licensed under the MIT License — see [LICENSE](./LICENSE) for details.
