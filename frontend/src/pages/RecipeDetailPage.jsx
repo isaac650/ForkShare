@@ -5,7 +5,7 @@ function RecipeDetailPage() {
   return (
     <div style={{ padding: 40, fontFamily: 'Helvetica, Arial, sans-serif' }}>
       <h2>Recipe Detail</h2>
-      <p>Recipe id: {id}).</p>
+      <p>Recipe id: {id}.</p>
     </div>
   );
 }

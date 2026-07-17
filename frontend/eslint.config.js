@@ -17,6 +17,7 @@ export default [
         window: 'readonly',
         document: 'readonly',
         fetch: 'readonly',
+        URLSearchParams: 'readonly',
       },
       parserOptions: {
         ecmaFeatures: { jsx: true },
@@ -28,7 +29,7 @@ export default [
     rules: {
       ...react.configs.recommended.rules,
       ...reactHooks.configs.recommended.rules,
-      'react/react-in-jsx-scope': 'off', // not needed with the React 17+ JSX transform
+      'react/react-in-jsx-scope': 'off',
       'react/prop-types': 'error',
     },
   },
